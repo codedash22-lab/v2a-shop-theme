@@ -93,7 +93,7 @@
                         {% endif %}
                     </div>
                     <div class="{{ product.is_on_sale ? 'hidden' : 'flex' }} v2a-price-row">
-                        {% if product.starting_price %}<span class="v2a-muted">{{ trans('pages.products.starting_price') }}</span>{% endif %}
+                        {% if product.starting_price %}<span class="v2a-muted">يبدأ من</span>{% endif %}
                         <span class="v2a-price">{{ product.starting_price ? product.starting_price|money : product.price|money }}</span>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                     {% set product_desc = product.description|replace({"&nbsp;":"\n"}) %}
                     {% if product.has_read_more %}
                         <article class="article article--main" id="more-content" style="max-height:5.25rem">{{ product_desc|raw }}</article>
-                        <a id="btn-show-more" class="v2a-link">{{ trans('pages.products.read_more') }}</a>
+                        <a id="btn-show-more" class="v2a-link">قراءة المزيد</a>
                     {% else %}
                         <article class="article--main">{{ product_desc|raw }}</article>
                     {% endif %}
@@ -132,7 +132,7 @@
                             <input type="hidden" value="1" name="quantity" aria-label="Quantity"/>
                         {% else %}
                             <div class="v2a-qty-row">
-                                <label class="v2a-qty-label">{{ trans('pages.products.quantity') }}</label>
+                                <label class="v2a-qty-label">الكمية</label>
                                 <salla-quantity-input data-testid="store-product-quantity" max="{{ product.max_quantity }}"
                                                        value="1" name="quantity" aria-label="Quantity"></salla-quantity-input>
                             </div>
