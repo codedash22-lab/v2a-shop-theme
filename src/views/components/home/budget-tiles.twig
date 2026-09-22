@@ -1,0 +1,23 @@
+{#
+| Variable                | Type    | Description                                     |
+|-------------------------|---------|--------------------------------------------------|
+| component               | object  | Merchant-filled fields from `home.budget-tiles`   |
+| component.heading       | ?string |                                                  |
+| component.tiles[].amount| string  |                                                  |
+| component.tiles[].url   | ?string |                                                  |
+| position                | int     | Sorting number start from zero                    |
+#}
+<section component-id="{{ componentId }}" data-testid="store-home-budget-tiles" class="v2a-budget">
+    <div class="container">
+        {% if component.heading %}<h2 class="s-block__title">{{ component.heading }}</h2>{% endif %}
+        <div class="v2a-budget__grid" style="--tiles-count:{{ component.tiles|length }}">
+            {% for tile in component.tiles %}
+                <a href="{{ tile.url ?: '#' }}" class="v2a-budget__tile">
+                    <span class="v2a-budget__label">أقل من</span>
+                    <span class="v2a-budget__amount">{{ tile.amount }}</span>
+                    <span class="v2a-budget__unit">ريال</span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>

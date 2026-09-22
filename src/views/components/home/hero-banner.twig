@@ -1,0 +1,36 @@
+{#
+| Variable                       | Type     | Description                                                    |
+|--------------------------------|----------|------------------------------------------------------------------|
+| component                      | object   | Merchant-filled fields from twilight.json `home.hero-banner`      |
+| component.slides[].image       | string   |                                                                    |
+| component.slides[].eyebrow     | ?string  |                                                                    |
+| component.slides[].title       | string   |                                                                    |
+| component.slides[].description | ?string  |                                                                    |
+| component.slides[].cta_text    | ?string  |                                                                    |
+| component.slides[].url         | ?string  |                                                                    |
+| position                       | int      | Sorting number start from zero                                   |
+#}
+<section component-id="{{ componentId }}" data-testid="store-home-hero" class="v2a-hero">
+    <salla-slider id="v2a-hero-slider-{{ position }}" auto-play static-when-single
+                  {{ component.slides|length > 1 ? '' : 'show-controls="false"' }} type="fullwidth">
+        <div slot="items">
+            {% for slide in component.slides %}
+                <div class="swiper-slide v2a-hero__slide">
+                    <div class="v2a-hero__bg" style="background-image:url({{ slide.image }});"></div>
+                    <div class="v2a-hero__scrim"></div>
+                    <div class="v2a-hero__grid"></div>
+                    <div class="container v2a-hero__inner">
+                        <div class="v2a-hero__content">
+                            {% if slide.eyebrow %}<span class="v2a-hero__eyebrow">{{ slide.eyebrow }}</span>{% endif %}
+                            <h2 class="v2a-hero__title" data-swiper-parallax="-400">{{ slide.title }}</h2>
+                            {% if slide.description %}<p class="v2a-hero__desc" data-swiper-parallax="-250">{{ slide.description }}</p>{% endif %}
+                            {% if slide.cta_text %}
+                                <a href="{{ slide.url ?: '#' }}" class="v2a-hero__cta">{{ slide.cta_text }}</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </salla-slider>
+</section>

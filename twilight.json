@@ -80,5 +80,167 @@
             "selected": true
         }
     ],
-    "components": []
+    "components": [
+        {
+            "key": "V2A-hero-banner-0001",
+            "title": {
+                "ar": "بانر رئيسي",
+                "en": "V2A Hero Banner"
+            },
+            "icon": "sicon-image-carousel",
+            "path": "home.hero-banner",
+            "is_default": true,
+            "fields": [
+                {
+                    "type": "static",
+                    "format": "description",
+                    "id": "hero-note",
+                    "value": "<div>بانر رئيسي بعرض كامل، رسالة واحدة واضحة لكل شريحة. المقاس المناسب للصورة: 1600×900 بكسل.</div>"
+                },
+                {
+                    "id": "slides",
+                    "type": "collection",
+                    "format": "collection",
+                    "required": true,
+                    "minLength": 1,
+                    "maxLength": 5,
+                    "label": "الشرائح",
+                    "item_label": "شريحة",
+                    "fields": [
+                        {
+                            "type": "string",
+                            "icon": "sicon-image",
+                            "id": "slides.image",
+                            "label": "صورة الخلفية",
+                            "format": "image",
+                            "required": true,
+                            "description": "المقاس المناسب: 1600×900 بكسل",
+                            "settings": { "width": 1600, "height": 900 }
+                        },
+                        {
+                            "type": "string",
+                            "icon": "sicon-format-text-alt",
+                            "id": "slides.eyebrow",
+                            "label": "شارة صغيرة (اسم المنتج/الفئة)",
+                            "multilanguage": true,
+                            "format": "text",
+                            "required": false,
+                            "placeholder": "EA SPORTS FC 27",
+                            "maxLength": 60
+                        },
+                        {
+                            "type": "string",
+                            "icon": "sicon-typography",
+                            "id": "slides.title",
+                            "label": "العنوان الرئيسي",
+                            "multilanguage": true,
+                            "format": "text",
+                            "required": true,
+                            "placeholder": "فيفا 27 وصل — أرخص سعر",
+                            "maxLength": 80
+                        },
+                        {
+                            "type": "string",
+                            "icon": "sicon-typography",
+                            "id": "slides.description",
+                            "label": "وصف مختصر",
+                            "multilanguage": true,
+                            "format": "textarea",
+                            "required": false,
+                            "maxLength": 150
+                        },
+                        {
+                            "type": "string",
+                            "icon": "sicon-format-text-alt",
+                            "id": "slides.cta_text",
+                            "label": "نص الزر",
+                            "multilanguage": true,
+                            "format": "text",
+                            "required": false,
+                            "placeholder": "تسوق الآن",
+                            "maxLength": 30
+                        },
+                        {
+                            "type": "items",
+                            "icon": "sicon-link",
+                            "id": "slides.url",
+                            "label": "رابط الزر",
+                            "format": "variable-list",
+                            "searchable": true,
+                            "required": false,
+                            "source": "custom",
+                            "sources": [
+                                { "label": "منتج", "key": "products", "value": "products" },
+                                { "label": "تصنيف", "key": "categories", "value": "categories" },
+                                { "label": "التخفيضات", "key": "offers_link", "value": "offers_link" },
+                                { "label": "رابط خارجي", "key": "custom", "value": "custom" }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "V2A-budget-tiles-0001",
+            "title": {
+                "ar": "تسوق حسب الميزانية",
+                "en": "V2A Budget Tiles"
+            },
+            "icon": "sicon-price-tag",
+            "path": "home.budget-tiles",
+            "is_default": true,
+            "fields": [
+                {
+                    "type": "static",
+                    "format": "description",
+                    "id": "budget-note",
+                    "value": "<div>بطاقات سعرية تربط كل مبلغ بتصنيف يعرض منتجات بهذا النطاق السعري.</div>"
+                },
+                {
+                    "id": "heading",
+                    "type": "string",
+                    "format": "text",
+                    "multilanguage": true,
+                    "required": false,
+                    "label": "عنوان القسم",
+                    "value": "تسوق حسب ميزانيتك",
+                    "maxLength": 60
+                },
+                {
+                    "id": "tiles",
+                    "type": "collection",
+                    "format": "collection",
+                    "required": true,
+                    "minLength": 2,
+                    "maxLength": 4,
+                    "label": "البطاقات",
+                    "item_label": "بطاقة",
+                    "fields": [
+                        {
+                            "type": "string",
+                            "icon": "sicon-typography",
+                            "id": "tiles.amount",
+                            "label": "المبلغ (يظهر كبير، مثال: 20)",
+                            "format": "text",
+                            "required": true,
+                            "maxLength": 10
+                        },
+                        {
+                            "type": "items",
+                            "icon": "sicon-link",
+                            "id": "tiles.url",
+                            "label": "رابط التصنيف",
+                            "format": "variable-list",
+                            "searchable": true,
+                            "required": true,
+                            "source": "custom",
+                            "sources": [
+                                { "label": "تصنيف", "key": "categories", "value": "categories" }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }
