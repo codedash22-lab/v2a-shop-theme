@@ -1,0 +1,85 @@
+{
+    "name": {
+        "ar": "في تو ايه",
+        "en": "V2A"
+    },
+    "description": {
+        "ar": "ثيم مخصص لمتجر V2A Shop — أكواد وحسابات ألعاب رقمية، بهوية بنفسجية داكنة مستوحاة من أفضل متاجر الأكواد الرقمية العالمية.",
+        "en": "Custom theme for V2A Shop — digital game codes and accounts, dark violet gaming identity inspired by leading digital key stores."
+    },
+    "repository": "https://github.com/codedash22-lab/v2a-shop-theme",
+    "author_email": "codedash22@gmail.com",
+    "support_url": "https://v2ashop.com",
+    "features": [
+        "fonts",
+        "color",
+        "breadcrumb",
+        "component-fixed-products",
+        "component-store-features",
+        "component-testimonials"
+    ],
+    "settings": [
+        {
+            "type": "static",
+            "format": "title",
+            "id": "static-label-header",
+            "value": "<div style='background:#171727;padding:14px;border-radius:8px;margin-bottom:16px;'><h6 style='color:#4ADE80;font-weight:bold;'>خيارات الهيدر</h6></div>"
+        },
+        {
+            "id": "header_is_sticky",
+            "label": "تثبيت القائمة الرئيسية أعلى الصفحة عند التمرير",
+            "type": "boolean",
+            "format": "switch",
+            "value": true,
+            "selected": true
+        },
+        {
+            "id": "show_rating_bar",
+            "label": "إظهار شريط التقييم تحت الهيدر",
+            "type": "boolean",
+            "format": "switch",
+            "value": true,
+            "selected": true
+        },
+        {
+            "id": "important_links",
+            "label": "عرض روابط الصفحات الهامة في الشريط العلوي",
+            "type": "boolean",
+            "format": "switch",
+            "value": true,
+            "selected": true
+        },
+        {
+            "type": "static",
+            "format": "title",
+            "id": "static-label-product",
+            "value": "<div style='background:#171727;padding:14px;border-radius:8px;margin-bottom:16px;'><h6 style='color:#4ADE80;font-weight:bold;'>خيارات صفحة المنتج</h6></div>"
+        },
+        {
+            "id": "product_show_breadcrumbs",
+            "label": "عرض مسار التنقل بصفحة المنتج",
+            "type": "boolean",
+            "format": "switch",
+            "value": true,
+            "selected": true
+        },
+        {
+            "id": "show_delivery_checklist",
+            "label": "عرض قائمة (متوفر / يعمل بالسعودية / تسليم فوري)",
+            "type": "boolean",
+            "format": "switch",
+            "value": true,
+            "selected": true
+        },
+        {
+            "id": "sticky_buy_bar",
+            "label": "زر شراء ثابت أسفل الشاشة بصفحة المنتج (جوال)",
+            "type": "boolean",
+            "format": "switch",
+            "value": true,
+            "selected": true
+        }
+    ],
+    "custom_components": [],
+    "version": "1.0.0"
+}

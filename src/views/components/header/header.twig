@@ -1,0 +1,79 @@
+{#
+| Variable         | Type    | Description                     |
+|------------------|---------|---------------------------------|
+| cart             | object  |                                 |
+| cart.items_count | int     |                                 |
+#}
+{% set important_links = theme.settings.get('important_links', true) %}
+{% set show_rating_bar = theme.settings.get('show_rating_bar', true) %}
+<header data-testid="store-header" class="v2a-header">
+
+    {# Header band — lighter violet, logo + language/currency/wishlist/account/cart #}
+    <div id="mainnav" class="v2a-mainnav">
+        <div class="container">
+            <div class="flex items-center justify-between py-3">
+
+                <div class="flex items-center gap-3">
+                    <a data-testid="store-header-mobile-toggle" class="lg:hidden mburger mburger--collapse leading-none v2a-icon-btn" href="#mobile-menu" aria-label="Open menu">
+                        <i class="sicon-menu text-2xl"></i>
+                    </a>
+                    <custom-main-menu class="hidden lg:block"></custom-main-menu>
+                </div>
+
+                <a data-testid="store-header-logo" class="v2a-logo" href="{{ store.url }}">
+                    {% if store.logo %}
+                        <img fetchpriority="high" width="auto" height="34" loading="eager" src="{{ store.logo|cdn(150) }}" alt="{{ store.name }} logo">
+                    {% else %}
+                        <span class="v2a-logo__text">{{ store.name }}</span>
+                    {% endif %}
+                    {% if is_page('index') %}
+                        <h1 class="sr-only">{{ store.name }}</h1>
+                    {% else %}
+                        <h2 class="sr-only">{{ store.name }}</h2>
+                    {% endif %}
+                </a>
+
+                <div class="flex items-center gap-1">
+                    {% if store.settings.is_multilingual or store.settings.currencies_enabled %}
+                        <salla-localization-modal data-testid="store-header-localization" show-trigger class="v2a-icon-btn v2a-lang-currency"></salla-localization-modal>
+                    {% endif %}
+                    <salla-search data-testid="store-header-search" class="v2a-icon-btn"></salla-search>
+                    <salla-user-menu data-testid="store-header-user-menu" avatar-only show-header show-trigger class="v2a-icon-btn"></salla-user-menu>
+                    <salla-wishlist-button data-testid="store-header-wishlist" class="v2a-icon-btn hidden sm:inline-flex"></salla-wishlist-button>
+                    <salla-cart-summary data-testid="store-header-cart" class="v2a-icon-btn v2a-cart-summary">
+                        <i slot="icon" class="header-btn__icon icon sicon-shopping-bag"></i>
+                    </salla-cart-summary>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Rating strip — matches the mockup's green-star trust bar #}
+    {% if show_rating_bar %}
+    <div class="v2a-rating-bar">
+        <div class="container flex items-center justify-center gap-2">
+            <div class="v2a-rating-bar__stars">
+                {% for i in 1..5 %}
+                    <span class="v2a-star"><i class="sicon-star"></i></span>
+                {% endfor %}
+            </div>
+            <span class="v2a-rating-bar__text">{{ trans('blocks.header.excellent')|default('ممتاز · آلاف العملاء') }}</span>
+        </div>
+    </div>
+    {% endif %}
+
+    {# Search bar row — rounded white pill on its own dark strip #}
+    <div class="v2a-search-strip">
+        <div class="container">
+            <salla-search data-testid="store-header-search-bar" class="v2a-search-pill" placeholder="{{ trans('common.elements.search_by_title')|default('ابحث باسم اللعبة...') }}"></salla-search>
+        </div>
+    </div>
+
+    {% if important_links %}
+    <div class="v2a-topbar">
+        <div class="container">
+            <salla-menu data-testid="store-header-topnav" source="footer" topnav></salla-menu>
+        </div>
+    </div>
+    {% endif %}
+</header>

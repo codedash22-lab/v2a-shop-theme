@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================================
+   V2A SHOP — Theme Stylesheet
+   Dark violet base + neon-green accent, gaming digital-store
+   identity. Structure inspired by Loaded/CDKeys + HRK's dense
+   product card, adapted with V2A's own brand tokens.
+   ======================================================== */
+
+body {
+  background: var(--v2a-bg);
+  font-family: 'Tajawal', var(--font-main), sans-serif;
+  color: var(--v2a-ink);
+}
+
+a { color: inherit; }
+
+/* ---------- Header ---------- */
+.v2a-header { position: relative; z-index: 40; }
+
+.v2a-mainnav {
+  background: var(--v2a-header);
+}
+
+.v2a-logo {
+  display: flex; align-items: center; gap: 8px;
+}
+.v2a-logo__text {
+  font-family: 'Orbitron', sans-serif; font-weight: 800; color: #fff; font-size: 18px; letter-spacing: .02em;
+}
+
+.v2a-icon-btn {
+  color: #fff; display: inline-flex; align-items: center; justify-content: center;
+  padding: 6px; --icon-color: #fff;
+}
+.v2a-icon-btn i, .v2a-icon-btn svg { color: #fff; fill: #fff; }
+
+.v2a-cart-summary .cart-count,
+.v2a-cart-summary [slot="count"] {
+  background: var(--v2a-green) !important;
+  color: var(--v2a-bg) !important;
+  font-weight: 900 !important;
+}
+
+/* Rating strip */
+.v2a-rating-bar {
+  background: var(--v2a-header-2);
+  border-bottom: 1px solid #2A1F57;
+  padding: 10px 0;
+}
+.v2a-rating-bar__stars { display: flex; gap: 3px; direction: ltr; }
+.v2a-star {
+  width: 20px; height: 20px; border-radius: 4px;
+  background: var(--v2a-green);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 11px;
+}
+.v2a-rating-bar__text { color: var(--v2a-muted); font-size: 12px; font-weight: 700; }
+
+/* Search strip */
+.v2a-search-strip { background: var(--v2a-header-2); padding: 12px 0; }
+.v2a-search-pill {
+  --search-bg: #fff; --search-radius: 26px; --search-color: #111;
+  display: block; width: 100%;
+}
+.v2a-search-pill input,
+.v2a-search-pill [part="input"] {
+  background: #fff !important; color: #111 !important; border-radius: 26px !important;
+  padding: 11px 16px !important; border: none !important;
+}
+
+.v2a-topbar { background: var(--v2a-bg-soft); border-bottom: 1px solid var(--v2a-line); }
+.v2a-topbar salla-menu { color: var(--v2a-muted); font-size: 13px; }
+
+/* ---------- Section titles ---------- */
+.s-block__title, .title-wrapper h2, .title-wrapper h3 {
+  color: #fff !important; font-weight: 900 !important; font-size: 1.25rem !important;
+  position: relative; padding-inline-start: 14px;
+}
+.s-block__title::before {
+  content: ''; position: absolute; right: 0; top: 8%; height: 84%; width: 4px;
+  background: linear-gradient(180deg, var(--v2a-violet), var(--v2a-green)); border-radius: 3px;
+}
+.s-block__display-all { color: #9061F9 !important; font-weight: 700 !important; }
+.s-block__display-all:hover { color: var(--v2a-green) !important; }
+
+/* ---------- Product cards (grid / sliders) ---------- */
+.s-product-card-entry, .product-entry, salla-products-slider .swiper-slide {
+  background: var(--v2a-surface) !important;
+  border: 1px solid var(--v2a-line) !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+  transition: transform .2s ease, border-color .2s ease !important;
+}
+.s-product-card-entry:hover, .product-entry:hover {
+  border-color: var(--v2a-violet) !important;
+  transform: translateY(-3px);
+}
+.s-product-card-content-title a, .product-entry__title {
+  color: #fff !important; font-weight: 700 !important; font-size: .88rem !important; line-height: 1.4 !important;
+}
+.s-product-card-sale-price h4, .s-product-card-price, .product-entry .price {
+  color: var(--v2a-green) !important; font-weight: 900 !important; font-size: 1.05rem !important;
+}
+.s-product-card-sale-price span, .product-entry .before-price, del {
+  color: #55556E !important; text-decoration: line-through !important;
+}
+.s-product-card-promotion-title, .percentage-off {
+  background: #EF4444 !important; color: #fff !important;
+  font-weight: 900 !important; border-radius: 6px !important; padding: 3px 8px !important; font-size: 11px !important;
+}
+.s-product-card-add-cart-btn, .product-entry .add-to-cart {
+  background: linear-gradient(135deg, var(--v2a-violet-deep), var(--v2a-violet)) !important;
+  border: none !important; border-radius: 9px !important;
+}
+
+/* ---------- Buttons (site-wide) ---------- */
+.btn--primary, .btn-primary, salla-button[color="primary"], salla-add-product-button button {
+  background: linear-gradient(135deg, var(--v2a-violet-deep), var(--v2a-violet)) !important;
+  border: none !important; color: #fff !important; font-weight: 800 !important;
+  border-radius: 10px !important; box-shadow: 0 6px 18px rgba(124,58,237,.25) !important;
+}
+
+/* ---------- Product page ---------- */
+.v2a-product {
+  display: grid; grid-template-columns: 1fr; gap: 28px;
+}
+@media (min-width: 992px) {
+  .v2a-product { grid-template-columns: 1fr 1fr; gap: 48px; }
+}
+.v2a-product__slider { border-radius: 14px; overflow: hidden; background: var(--v2a-surface); }
+
+.v2a-eyebrow { color: var(--v2a-muted); font-size: 12px; font-weight: 700; }
+.v2a-product__title { color: #fff; font-weight: 900; font-size: 1.6rem; margin: 6px 0 2px; }
+.v2a-product__subtitle { color: var(--v2a-muted); font-weight: 600; font-size: 13px; margin-bottom: 10px; }
+
+.v2a-badges-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 14px; }
+.v2a-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--v2a-surface); border: 1px solid var(--v2a-line);
+  padding: 6px 12px; border-radius: 9px; font-size: 11.5px; font-weight: 700; color: var(--v2a-muted);
+}
+.v2a-badge--ok { background: rgba(34,197,94,.10); border-color: rgba(34,197,94,.35); color: var(--v2a-green); font-weight: 800; }
+.v2a-badge--fast { color: #FACC15; }
+.v2a-badge--sale, .v2a-badge--discount {
+  background: #EF4444; color: #fff; border: none; font-weight: 900;
+}
+
+.v2a-product__price { margin: 14px 0; }
+.v2a-price-row { display: flex; align-items: baseline; gap: 10px; }
+.v2a-price { color: var(--v2a-green); font-weight: 900; font-size: 2rem; text-shadow: 0 0 20px rgba(34,197,94,.2); }
+.v2a-price--sale { color: var(--v2a-green); }
+.v2a-price-old { color: #55556E; font-size: 1rem; text-decoration: line-through; }
+
+.v2a-checklist { list-style: none; padding: 0; margin: 14px 0; display: flex; flex-direction: column; gap: 8px; }
+.v2a-checklist li {
+  display: flex; align-items: center; gap: 9px; color: #D2D2E0; font-size: 13px; font-weight: 600;
+}
+.v2a-checklist li i { color: var(--v2a-green); font-size: 16px; }
+
+.v2a-product__desc { color: var(--v2a-muted); font-size: 13.5px; line-height: 1.85; margin: 16px 0; }
+.v2a-link { color: #9061F9; font-weight: 700; font-size: 13px; }
+
+.v2a-product__buybox { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+.v2a-qty-row { display: flex; align-items: center; justify-content: space-between; }
+.v2a-qty-label { color: var(--v2a-muted); font-size: 12px; font-weight: 700; }
+.v2a-buybox__actions { display: flex; gap: 10px; }
+.v2a-add-to-cart { flex: 1; }
+.v2a-wishlist-btn--desktop { flex: none; }
+
+.v2a-related { margin-top: 40px; }
+
+/* Sticky mobile buy bar */
+.v2a-sticky-bar {
+  position: fixed; bottom: 0; inset-inline: 0; z-index: 50;
+  background: #1A1040; border-top: 1px solid #2F2466;
+  padding: 10px 14px; padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  display: none; align-items: center; gap: 10px;
+  box-shadow: 0 -8px 24px rgba(0,0,0,.5);
+}
+.v2a-sticky-bar.is-visible { display: flex; }
+@media (min-width: 992px) { .v2a-sticky-bar { display: none !important; } }
+.v2a-sticky-bar__thumb { flex: none; width: 40px; height: 52px; border-radius: 6px; overflow: hidden; border: 1.5px solid var(--v2a-violet); }
+.v2a-sticky-bar__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.v2a-sticky-bar__info { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.v2a-sticky-bar__title { color: #fff; font-size: 11.5px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.v2a-sticky-bar__price { color: var(--v2a-green); font-weight: 900; font-size: 15px; }
+
+/* ---------- Footer ---------- */
+.v2a-footer { background: #0A0A12; padding: 32px 0 20px; border-top: 1px solid var(--v2a-line); }
+.v2a-footer__grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+@media (min-width: 992px) { .v2a-footer__grid { grid-template-columns: 2fr 1fr 1fr 1fr; } }
+.v2a-footer h3 { color: #fff; font-weight: 800; font-size: 14px; margin-bottom: 10px; }
+.v2a-footer__desc { color: var(--v2a-muted); font-size: 12.5px; line-height: 1.8; margin: 8px 0; }
+.v2a-footer__col a, .v2a-footer salla-menu a { color: var(--v2a-muted); font-size: 12.5px; }
+.v2a-footer__col a:hover { color: #9061F9; }
+.v2a-footer__bottom {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--v2a-line);
+  color: #55556E; font-size: 11px;
+}
+
+/* Utility: hide horizontal scrollbars on card rails while keeping swipe */
+.v2a-scroll-x { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; }
+.v2a-scroll-x > * { flex: none; scroll-snap-align: start; }

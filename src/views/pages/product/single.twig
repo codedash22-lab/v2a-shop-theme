@@ -1,0 +1,221 @@
+{#
+| Variable                    | Type    | Description                                                |
+|------------------------------|---------|--------------------------------------------------------------|
+| product                     | Product | See Salla's Twilight docs for the full Product reference     |
+| product.images[]            | array   |                                                              |
+| product.options             | array   | @see views/pages/partials/product/options.twig               |
+#}
+{% extends "layouts.master" %}
+{% block content %}
+    {% if theme.settings.get('product_show_breadcrumbs', true) %}
+        <div class="container container--breadcrumbs">
+            <nav class="breadcrumbs w-full py-5">
+                <salla-breadcrumb></salla-breadcrumb>
+            </nav>
+        </div>
+    {% endif %}
+
+    <div class="s-blocks-wrapper s-before-product-info !mt-0">{% hook 'product.single.before_product_info' %}</div>
+
+    <div class="container container--product-details">
+        <div class="v2a-product" id="product-{{ product.id }}">
+
+            {# Gallery #}
+            <div class="v2a-product__gallery">
+                {% set has_many_images = product.images|length > 1 %}
+                <salla-slider data-testid="store-product-image-slider"
+                              id="details-slider-{{ product.id }}"
+                              class="v2a-product__slider"
+                              type="thumbs" loop="false" auto-height
+                              listen-to-thumbnails-option show-thumbs-controls="false">
+
+                    {% if product.promotion_title %}
+                        <div class="promotion-title v2a-badge v2a-badge--sale">{{ product.promotion_title }}</div>
+                    {% endif %}
+
+                    <salla-button class="btn--wishlist v2a-wishlist-btn" data-id="{{ product.id }}"
+                                  onclick="salla.wishlist.toggle('{{ product.id }}')" shape="icon" fill="outline" color="light">
+                        <i class="sicon-heart"></i>
+                    </salla-button>
+
+                    <div slot="items">
+                        {% for image in product.images %}
+                            <a data-fslightbox="product_{{ product.id }}" data-img-id="{{ image.id }}"
+                               data-slid-index="{{ loop.index-1 }}" data-caption="{{ image.alt }}" data-infinite="false"
+                               href="{{ image.url }}" aria-label="{{ product.name }}" class="swiper-slide v2a-product__slide">
+                                <img id="{{ image.id }}" loading="{{ loop.first ? 'eager' : 'lazy' }}"
+                                     src="{{ image.url }}" alt="{{ image.alt }}" class="w-full h-full object-cover">
+                            </a>
+                        {% endfor %}
+                    </div>
+
+                    {% if has_many_images %}
+                        <div data-testid="store-product-thumbnails" slot="thumbs">
+                            {% for image in product.images %}
+                                <div class="slide--one-fourth v2a-product__thumb" data-caption="{{ image.alt }}">
+                                    <img src="{{ image.url }}" loading="{{ loop.index < 5 ? 'eager' : 'lazy' }}"
+                                         class="w-full h-full object-cover" alt="{{ image.alt }}"/>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </salla-slider>
+            </div>
+
+            {# Info #}
+            <div class="v2a-product__info">
+                {% hook 'product:single.description.start' %}
+
+                {% if product.category %}<span class="v2a-eyebrow">{{ product.category.name }}</span>{% endif %}
+                <h1 data-testid="store-product-title" class="v2a-product__title">{{ product.name }}</h1>
+                {% if product.subtitle %}<h2 class="v2a-product__subtitle">{{ product.subtitle }}</h2>{% endif %}
+
+                {# Badges row: platform / account-type / works-in-KSA — the mockup's signature element #}
+                <div class="v2a-badges-row">
+                    {% if product.brand %}
+                        <span class="v2a-badge v2a-badge--platform"><i class="sicon-devices"></i> {{ product.brand.name }}</span>
+                    {% endif %}
+                    <span class="v2a-badge v2a-badge--ok"><i class="sicon-check-circle"></i> {{ trans('blocks.product.works_in_ksa')|default('يعمل بالسعودية والخليج مباشرة') }}</span>
+                    <span class="v2a-badge v2a-badge--fast"><i class="sicon-bolt"></i> {{ trans('blocks.product.instant_delivery')|default('تسليم فوري') }}</span>
+                </div>
+
+                {% if product.rating %}
+                    <salla-rating-stars data-testid="store-product-rating" value="{{ product.rating.stars }}"
+                                        reviews="{{ product.rating.count }}"></salla-rating-stars>
+                {% endif %}
+
+                <div data-testid="store-product-price" class="v2a-product__price">
+                    <div class="{{ product.is_on_sale ? '' : 'hidden' }} v2a-price-row">
+                        <span class="v2a-price v2a-price--sale">{{ product.sale_price|money }}</span>
+                        <span class="v2a-price-old">{{ product.regular_price|money }}</span>
+                        {% if product.is_on_sale %}
+                            <span class="v2a-badge v2a-badge--discount">-{{ ((1 - (product.sale_price.amount / product.regular_price.amount)) * 100)|round }}%</span>
+                        {% endif %}
+                    </div>
+                    <div class="{{ product.is_on_sale ? 'hidden' : 'flex' }} v2a-price-row">
+                        {% if product.starting_price %}<span class="v2a-muted">{{ trans('pages.products.starting_price') }}</span>{% endif %}
+                        <span class="v2a-price">{{ product.starting_price ? product.starting_price|money : product.price|money }}</span>
+                    </div>
+                </div>
+
+                {# Checklist — available / private-account / guarantee #}
+                {% if theme.settings.get('show_delivery_checklist', true) %}
+                <ul class="v2a-checklist">
+                    <li><i class="sicon-check-circle"></i> {{ trans('blocks.product.in_stock')|default('متوفر الآن') }}</li>
+                    <li><i class="sicon-check-circle"></i> {{ trans('blocks.product.original')|default('كود/حساب أصلي 100%') }}</li>
+                    <li><i class="sicon-check-circle"></i> {{ trans('blocks.product.warranty')|default('ضمان كامل واستبدال فوري') }}</li>
+                </ul>
+                {% endif %}
+
+                <div data-testid="store-product-description" class="v2a-product__desc">
+                    {% set product_desc = product.description|replace({"&nbsp;":"\n"}) %}
+                    {% if product.has_read_more %}
+                        <article class="article article--main" id="more-content" style="max-height:5.25rem">{{ product_desc|raw }}</article>
+                        <a id="btn-show-more" class="v2a-link">{{ trans('pages.products.read_more') }}</a>
+                    {% else %}
+                        <article class="article--main">{{ product_desc|raw }}</article>
+                    {% endif %}
+                </div>
+
+                {% hook 'product:single.description' %}
+
+                <form data-testid="store-product-form" class="v2a-product__form" enctype="multipart/form-data" method="post"
+                      onsubmit="return salla.form.onSubmit('cart.addItem', event)">
+                    <input type="hidden" name="id" value="{{ product.id }}">
+
+                    {% hook 'product:single.form.start' %}
+                    {% include 'pages.partials.product.options' %}
+                    {% hook 'product:single.form.end' %}
+
+                    <div class="v2a-product__buybox">
+                        {% if product.is_hidden_quantity or product.type == 'booking' %}
+                            <input type="hidden" value="1" name="quantity" aria-label="Quantity"/>
+                        {% else %}
+                            <div class="v2a-qty-row">
+                                <label class="v2a-qty-label">{{ trans('pages.products.quantity') }}</label>
+                                <salla-quantity-input data-testid="store-product-quantity" max="{{ product.max_quantity }}"
+                                                       value="1" name="quantity" aria-label="Quantity"></salla-quantity-input>
+                            </div>
+                        {% endif %}
+
+                        <div class="v2a-buybox__actions">
+                            <salla-add-product-button data-testid="store-product-add-to-cart"
+                                    {{ product.can_quick_buy ? 'quick-buy' : '' }}
+                                    {{ product.is_require_shipping ? 'required-shipping' : '' }}
+                                    amount="{{ product.base_currency_price }}"
+                                    class="v2a-add-to-cart"
+                                    product-status="{{ product.status }}"
+                                    product-type="{{ product.type }}"
+                                    product-id="{{ product.id }}"
+                                    loader-position="end" type="submit" width="wide">
+                                {{ product.add_to_cart_label }}
+                            </salla-add-product-button>
+                            <salla-button data-testid="store-product-wishlist-btn" class="v2a-wishlist-btn v2a-wishlist-btn--desktop"
+                                          data-id="{{ product.id }}" onclick="salla.wishlist.toggle('{{ product.id }}')"
+                                          shape="icon" fill="outline" color="light" aria-label="add to wishlist">
+                                <i class="sicon-heart"></i>
+                            </salla-button>
+                        </div>
+                    </div>
+                </form>
+
+                {% hook 'product:single.description.end' %}
+            </div>
+        </div>
+        <salla-offer data-testid="store-product-offer"></salla-offer>
+    </div>
+
+    <div class="s-blocks-wrapper s-before-reviews">{% hook 'product.single.before_customer_reviews' %}</div>
+
+    {% if store.settings.rating.show_on_product %}
+        <salla-comments data-testid="store-product-comments" item-id="{{ product.id }}" type="product"></salla-comments>
+    {% endif %}
+
+    <div class="s-blocks-wrapper s-before-related">{% hook 'product.single.before_product_recommendations' %}</div>
+
+    <div class="container v2a-related">
+        <salla-products-slider data-testid="store-product-related" source="related" source-value="{{ product.id }}"
+                                block-title="{{ trans('pages.products.related')|default('قد يعجبك أيضًا') }}" display-all-url></salla-products-slider>
+    </div>
+
+    <div class="s-blocks-wrapper s-after-related">{% hook 'product.single.after_product_recommendations' %}</div>
+
+    {# Sticky mobile buy bar — mirrors the desktop buybox, appears on scroll via app.js #}
+    {% if theme.settings.get('sticky_buy_bar', true) %}
+    <div class="v2a-sticky-bar" id="v2a-sticky-bar">
+        <div class="v2a-sticky-bar__thumb">
+            <img src="{{ product.image.url|default(product.images[0].url) }}" alt="" loading="lazy">
+        </div>
+        <div class="v2a-sticky-bar__info">
+            <span class="v2a-sticky-bar__title">{{ product.name }}</span>
+            <span class="v2a-sticky-bar__price">
+                {% if product.is_on_sale %}{{ product.sale_price|money }}{% else %}{{ product.price|money }}{% endif %}
+            </span>
+        </div>
+        <salla-add-product-button data-testid="store-product-add-to-cart-sticky"
+                product-id="{{ product.id }}" product-status="{{ product.status }}" product-type="{{ product.type }}"
+                class="v2a-add-to-cart v2a-add-to-cart--sticky" loader-position="end">
+            {{ product.add_to_cart_label }}
+        </salla-add-product-button>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    <script defer src="{{ 'product.js' | asset }}"></script>
+    {% if theme.settings.get('sticky_buy_bar', true) %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var bar = document.getElementById('v2a-sticky-bar');
+        var buybox = document.querySelector('.v2a-buybox__actions');
+        if (!bar || !buybox) return;
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            bar.classList.toggle('is-visible', !e.isIntersecting);
+          });
+        }, { threshold: 0 });
+        io.observe(buybox);
+      });
+    </script>
+    {% endif %}
+{% endblock %}

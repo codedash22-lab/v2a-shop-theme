@@ -1,0 +1,21 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Lockfiles (kept out to avoid noisy diffs / package-manager mismatches — add one back if you prefer to pin)
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+.idea
+.DS_Store
+
+# NOTE: unlike a typical Node project, `public/` is intentionally NOT
+# ignored — Salla serves the theme's compiled assets straight from the
+# committed `public/` folder, so run `npm run production` and commit
+# the result before every push/publish.

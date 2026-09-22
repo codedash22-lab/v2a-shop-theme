@@ -1,0 +1,42 @@
+<footer data-testid="store-footer" class="v2a-footer">
+    <div class="container v2a-footer__grid">
+
+        <div class="v2a-footer__brand">
+            <a href="{{ link('/') }}" class="v2a-footer__logo">
+                {% if store.logo %}
+                    <img src="{{ store.logo|cdn(120) }}" alt="{{ store.name }}" width="120" height="40">
+                {% else %}
+                    <h3>{{ store.name }}</h3>
+                {% endif %}
+            </a>
+            {% if store.description %}
+                <div class="v2a-footer__desc">{{ store.description|raw }}</div>
+            {% endif %}
+            <div class="v2a-footer__social">
+                <salla-social data-testid="store-footer-social"></salla-social>
+            </div>
+        </div>
+
+        <div class="v2a-footer__col">
+            <h3>{{ trans('blocks.footer.pages_links') }}</h3>
+            <salla-menu data-testid="store-footer-menu" source="footer" with-cookie-preferences></salla-menu>
+        </div>
+
+        <div class="v2a-footer__col">
+            <h3>{{ trans('common.titles.contact_us') }}</h3>
+            <salla-contacts data-testid="store-footer-contacts"></salla-contacts>
+        </div>
+
+        <div class="v2a-footer__col v2a-footer__newsletter-col">
+            <salla-apps-icons data-testid="store-footer-apps"></salla-apps-icons>
+        </div>
+    </div>
+
+    <div class="v2a-footer__bottom container">
+        <span class="v2a-footer__copyright">{% hook copyright %}</span>
+        <div class="v2a-footer__badges">
+            <salla-trust-badges data-testid="store-footer-trust-badges" dark></salla-trust-badges>
+            <salla-payments data-testid="store-footer-payments"></salla-payments>
+        </div>
+    </div>
+</footer>
