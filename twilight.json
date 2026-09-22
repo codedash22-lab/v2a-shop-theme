@@ -80,6 +80,5 @@
             "selected": true
         }
     ],
-    "custom_components": [],
-    "version": "1.0.0"
+    "components": []
 }
