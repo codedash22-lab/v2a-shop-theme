@@ -161,20 +161,13 @@
                             "maxLength": 30
                         },
                         {
-                            "type": "items",
+                            "type": "string",
                             "icon": "sicon-link",
                             "id": "slides.url",
-                            "label": "رابط الزر",
-                            "format": "variable-list",
-                            "searchable": true,
+                            "label": "رابط الزر (الصق رابط المنتج أو التصنيف كامل)",
+                            "format": "text",
                             "required": false,
-                            "source": "custom",
-                            "sources": [
-                                { "label": "منتج", "key": "products", "value": "products" },
-                                { "label": "تصنيف", "key": "categories", "value": "categories" },
-                                { "label": "التخفيضات", "key": "offers_link", "value": "offers_link" },
-                                { "label": "رابط خارجي", "key": "custom", "value": "custom" }
-                            ]
+                            "placeholder": "https://v2ashop.com/ar/xxxxx"
                         }
                     ]
                 }
@@ -226,17 +219,13 @@
                             "maxLength": 10
                         },
                         {
-                            "type": "items",
+                            "type": "string",
                             "icon": "sicon-link",
                             "id": "tiles.url",
-                            "label": "رابط التصنيف",
-                            "format": "variable-list",
-                            "searchable": true,
+                            "label": "رابط التصنيف (الصق رابط صفحة التصنيف كامل)",
+                            "format": "text",
                             "required": true,
-                            "source": "custom",
-                            "sources": [
-                                { "label": "تصنيف", "key": "categories", "value": "categories" }
-                            ]
+                            "placeholder": "https://v2ashop.com/ar/xxxxx"
                         }
                     ]
                 }
