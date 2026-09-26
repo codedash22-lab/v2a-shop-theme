@@ -230,6 +230,17 @@
                     ]
                 }
             ]
+        },
+        {
+            "key": "V2A-trust-badges-0001",
+            "title": {
+                "ar": "شريط الثقة",
+                "en": "V2A Trust Badges"
+            },
+            "icon": "sicon-shield-check",
+            "path": "home.trust-badges",
+            "is_default": true,
+            "fields": []
         }
     ]
 }

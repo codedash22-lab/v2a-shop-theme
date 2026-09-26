@@ -295,3 +295,15 @@ a { color: inherit; }
 .v2a-cart-summary__card { background: var(--v2a-surface); border: 1px solid var(--v2a-line); border-radius: 12px; padding: 16px; }
 .v2a-secure-note { display: flex; align-items: center; gap: 8px; color: var(--v2a-muted); font-size: 12px; padding: 4px 4px; }
 .v2a-secure-note i { color: var(--v2a-green); }
+
+/* ---------- Trust badges (custom home component) ---------- */
+.v2a-trust { padding: 22px 0; }
+.v2a-trust__row {
+  display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap; gap: 16px;
+  background: var(--v2a-surface); border: 1px solid var(--v2a-line); border-radius: 12px; padding: 16px 18px;
+}
+.v2a-trust__item { display: flex; align-items: center; gap: 10px; }
+.v2a-trust__item i { font-size: 26px; color: var(--v2a-green); }
+.v2a-trust__item div { display: flex; flex-direction: column; }
+.v2a-trust__item strong { color: #fff; font-size: 13px; font-weight: 800; }
+.v2a-trust__item span { color: var(--v2a-muted); font-size: 11px; }
