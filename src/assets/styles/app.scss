@@ -307,3 +307,26 @@ a { color: inherit; }
 .v2a-trust__item div { display: flex; flex-direction: column; }
 .v2a-trust__item strong { color: #fff; font-size: 13px; font-weight: 800; }
 .v2a-trust__item span { color: var(--v2a-muted); font-size: 11px; }
+
+/* ========================================================
+   Safety net: default/unstyled Salla blocks I haven't
+   built a dedicated .v2a-* wrapper for yet (store info,
+   important-links widget, etc.) — keep them from rendering
+   as a raw wall of text on any viewport.
+   ======================================================== */
+.s-block, [class*="s-block--"] {
+  padding: 20px 16px;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+.s-block ul, .s-block ol {
+  display: flex; flex-wrap: wrap; gap: 8px 20px;
+  list-style: none; padding: 0; margin: 10px 0 0;
+}
+.s-block a { color: #B191FB; font-size: 13px; font-weight: 600; }
+.s-block a:hover { color: var(--v2a-green); }
+.s-block h1, .s-block h2, .s-block h3 { color: #fff; }
+.s-block p { color: var(--v2a-muted); line-height: 1.8; }
+.s-block img[alt*="logo" i], .s-block img[alt*="شعار" i] {
+  max-width: 140px; height: auto; margin: 0 auto 12px; display: block;
+}
