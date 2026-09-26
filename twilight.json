@@ -161,13 +161,20 @@
                             "maxLength": 30
                         },
                         {
-                            "type": "string",
+                            "type": "items",
                             "icon": "sicon-link",
                             "id": "slides.url",
-                            "label": "رابط الزر (الصق رابط المنتج أو التصنيف كامل)",
-                            "format": "text",
+                            "label": "رابط الزر",
+                            "format": "variable-list",
+                            "searchable": true,
                             "required": false,
-                            "placeholder": "https://v2ashop.com/ar/xxxxx"
+                            "source": "custom",
+                            "sources": [
+                                { "label": "منتج", "key": "products", "value": "products" },
+                                { "label": "تصنيف", "key": "categories", "value": "categories" },
+                                { "label": "التخفيضات", "key": "offers_link", "value": "offers_link" },
+                                { "label": "رابط خارجي", "key": "custom", "value": "custom" }
+                            ]
                         }
                     ]
                 }
@@ -219,13 +226,20 @@
                             "maxLength": 10
                         },
                         {
-                            "type": "string",
+                            "type": "items",
                             "icon": "sicon-link",
                             "id": "tiles.url",
-                            "label": "رابط التصنيف (الصق رابط صفحة التصنيف كامل)",
-                            "format": "text",
+                            "label": "رابط التصنيف",
+                            "format": "variable-list",
+                            "searchable": true,
                             "required": true,
-                            "placeholder": "https://v2ashop.com/ar/xxxxx"
+                            "source": "custom",
+                            "sources": [
+                                { "label": "منتج", "key": "products", "value": "products" },
+                                { "label": "تصنيف", "key": "categories", "value": "categories" },
+                                { "label": "التخفيضات", "key": "offers_link", "value": "offers_link" },
+                                { "label": "رابط خارجي", "key": "custom", "value": "custom" }
+                            ]
                         }
                     ]
                 }
