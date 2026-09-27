@@ -15,6 +15,7 @@
         "color",
         "breadcrumb",
         "component-fixed-products",
+        "component-latest-products",
         "component-store-features",
         "component-testimonials"
     ],
