@@ -330,3 +330,33 @@ a { color: inherit; }
 .s-block img[alt*="logo" i], .s-block img[alt*="شعار" i] {
   max-width: 140px; height: auto; margin: 0 auto 12px; display: block;
 }
+
+/* ---------- Thank-you / order confirmation page ---------- */
+.v2a-thanks__card {
+  background: var(--v2a-surface); border: 1px solid var(--v2a-line); border-radius: 16px;
+  padding: 40px 20px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;
+}
+.v2a-thanks__icon {
+  width: 64px; height: 64px; border-radius: 50%; background: rgba(34,197,94,.14);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 8px;
+}
+.v2a-thanks__icon i { font-size: 34px; color: var(--v2a-green); }
+.v2a-thanks__title { color: #fff; font-weight: 900; font-size: 1.4rem; }
+.v2a-thanks__order-id { color: var(--v2a-muted); font-size: 13px; }
+.v2a-thanks__details-btn { margin-top: 6px; }
+.v2a-thanks__instructions, .v2a-thanks__message { color: var(--v2a-muted); font-size: 13px; margin-top: 10px; }
+.v2a-thanks__grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 24px; }
+@media (min-width: 900px) { .v2a-thanks__grid { grid-template-columns: 1fr 1fr; } }
+.v2a-thanks__box {
+  background: var(--v2a-surface); border: 1px solid var(--v2a-line); border-radius: 14px;
+  padding: 24px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px;
+}
+.v2a-thanks__box i { font-size: 22px; color: var(--v2a-violet); }
+.v2a-thanks__box p { color: #D2D2E0; font-size: 13px; }
+.v2a-thanks__invoice-form { display: flex; gap: 8px; width: 100%; max-width: 320px; }
+.v2a-input {
+  flex: 1; background: var(--v2a-bg); border: 1px solid var(--v2a-line); border-radius: 8px;
+  padding: 9px 12px; color: #fff; font-size: 13px;
+}
+.v2a-thanks__contacts { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+.v2a-thanks__contact { display: flex; align-items: center; gap: 6px; color: #D6C4FD; font-size: 13px; font-weight: 700; }

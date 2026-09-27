@@ -1,0 +1,100 @@
+{#
+| Variable  | Type   | Description                            |
+|-----------|--------|------------------------------------------|
+| order     | Order  | @see pages/customer/orders/single.twig    |
+| messages  | array  |                                          |
+
+Note: hardcoded Arabic strings throughout instead of trans() — this
+theme's translation catalog isn't wired up for custom keys, and even
+some standard-looking keys (common.titles.contact_us) rendered raw
+in testing. Simpler and more reliable for a single-language store.
+#}
+{% extends "layouts.master" %}
+
+{% block content %}
+    {% hook 'thank-you:start' %}
+    <div class="container v2a-thanks">
+        <nav class="breadcrumbs w-full py-5">
+            <salla-breadcrumb></salla-breadcrumb>
+        </nav>
+
+        <div class="v2a-thanks__card">
+            <div class="v2a-thanks__icon">
+                <i class="sicon-check-circle"></i>
+            </div>
+            <h1 data-testid="store-thankyou-title" class="v2a-thanks__title">{{ thank_you_title }}</h1>
+            <p class="v2a-thanks__order-id">
+                رقم الطلب:
+                <salla-button data-testid="store-thankyou-order-id" onclick="app.copyToClipboard(event)"
+                              color="dark" shape="link" data-content="{{ order.reference_id }}">
+                    <span class="ltr">#{{ order.reference_id }}</span>
+                    <i class="copy-icon sicon-swap-stroke pointer-events-none"></i>
+                </salla-button>
+            </p>
+            <salla-button data-testid="store-thankyou-order-details-btn" class="v2a-thanks__details-btn"
+                          onclick="salla.order.show({order_id:'{{ order.id }}', url:'{{ order.url }}'})">
+                <i class="sicon-newspaper"></i> تفاصيل الطلب
+            </salla-button>
+
+            {% if order.instructions %}
+                <article class="v2a-thanks__instructions">{{ order.instructions|raw }}</article>
+            {% endif %}
+
+            {% for message in messages %}
+                <p class="v2a-thanks__message">{{ message }}</p>
+            {% endfor %}
+
+            {% hook 'thank-you:items.start' %}
+            {% hook 'thank-you:items.end' %}
+        </div>
+
+        <salla-order-shipments class="block mb-6 empty:hidden"></salla-order-shipments>
+        <salla-next-order-coupon data-testid="store-thankyou-coupon"></salla-next-order-coupon>
+        {% if order.is_pickable %}
+            <salla-order-branch data-testid="store-thankyou-branch"></salla-order-branch>
+        {% endif %}
+
+        <div class="v2a-thanks__grid">
+            {% if order.email_sent %}
+                <div class="v2a-thanks__box">
+                    <i class="sicon-newspaper-alt"></i>
+                    <p>أرسلنا فاتورتك على بريدك الإلكتروني</p>
+                    <b class="ltr">{{ order.customer.email }}</b>
+                </div>
+            {% else %}
+                <div class="v2a-thanks__box">
+                    <i class="sicon-newspaper-alt"></i>
+                    <p>ما توصلك الفاتورة؟ اطلب إعادة إرسالها</p>
+                    <form onsubmit="return salla.form.onSubmit('order.sendInvoice', event)" class="v2a-thanks__invoice-form">
+                        <input data-testid="store-thankyou-email-input" type="email" class="v2a-input ltr"
+                               placeholder="your@email.com" required name="email">
+                        <salla-button data-testid="store-thankyou-email-submit" type="submit" loader-position="center">إرسال</salla-button>
+                    </form>
+                </div>
+            {% endif %}
+
+            <div class="v2a-thanks__box">
+                <i class="sicon-mail-letter"></i>
+                <p>تواصل معنا</p>
+                <div class="v2a-thanks__contacts">
+                    {% if store.contacts.mobile %}
+                        <a href="tel:{{ store.contacts.mobile }}" class="v2a-thanks__contact ltr">
+                            <i class="sicon-phone"></i> {{ store.contacts.mobile }}
+                        </a>
+                    {% endif %}
+                    {% if store.contacts.whatsapp %}
+                        <a href="https://wa.me/{{ store.contacts.whatsapp|replace({' ': '', '+': '', '-': ''}) }}"
+                           class="v2a-thanks__contact ltr" target="_blank" rel="noopener">
+                            <i class="sicon-whatsapp"></i> {{ store.contacts.whatsapp }}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% hook 'thank-you:end' %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script defer src="{{ 'checkout.js' | asset }}"></script>
+{% endblock %}
